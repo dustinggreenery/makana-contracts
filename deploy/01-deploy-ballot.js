@@ -1,8 +1,6 @@
 const { network, ethers } = require("hardhat");
-const { developmentChains } = require("../helper-hardhat-config");
+const { developmentChains, INITIAL_AMOUNT } = require("../helper-hardhat-config");
 const { verify } = require("../utils/verify");
-
-const INITIAL_AMOUNT = ethers.utils.parseEther("10");
 
 module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log } = deployments;

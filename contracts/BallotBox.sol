@@ -33,17 +33,15 @@ contract BallotBox is AutomationCompatibleInterface {
 
     // Time/State
     BBState private s_state;
-    uint256 private immutable i_snapshot;
-    uint256 private immutable i_startTime;
+    uint256 private immutable i_snapshot; // also start time
     uint256 private immutable i_timeToVote;
 
     // Event when a ballot is entered
     event BallotCast(address indexed voter, bool support);
 
-    constructor(ERC20Votes tokenAddress, uint256 startTime, uint256 timeToVote) {
+    constructor(ERC20Votes tokenAddress, uint256 timeTillStart, uint256 timeToVote) {
         i_governanceToken = ERC20Votes(address(tokenAddress));
-        i_snapshot = clock() + (startTime - block.timestamp);
-        i_startTime = startTime;
+        i_snapshot = clock() + timeTillStart;
         i_timeToVote = timeToVote;
         s_state = BBState.SETUP;
     }
@@ -76,9 +74,9 @@ contract BallotBox is AutomationCompatibleInterface {
         bytes memory
     ) public view override returns (bool upkeepNeeded, bytes memory) {
         if (s_state == BBState.SETUP) {
-            upkeepNeeded = block.timestamp > i_startTime;
+            upkeepNeeded = clock() >= i_snapshot;
         } else if (s_state == BBState.VOTING_PERIOD) {
-            upkeepNeeded = (block.timestamp - i_startTime) > i_timeToVote;
+            upkeepNeeded = clock() >= i_snapshot + i_timeToVote;
         }
     }
 
@@ -136,12 +134,8 @@ contract BallotBox is AutomationCompatibleInterface {
         return hasVoted[voter];
     }
 
-    function getSnapshotForVote() public view returns (uint256) {
-        return i_snapshot;
-    }
-
     function getStartTime() public view returns (uint256) {
-        return i_startTime;
+        return i_snapshot;
     }
 
     function getTimeToVote() public view returns (uint256) {
