@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
-import {ERC20Votes} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 
 error BallotBox__NotOpen(BallotBox.BBState state, uint256 time);
@@ -23,7 +23,7 @@ contract BallotBox is AutomationCompatibleInterface {
     }
 
     // Governance Token
-    ERC20Votes private immutable i_governanceToken;
+    ERC721Votes private immutable i_governanceToken;
 
     // Ballots, Result
     Result private s_result;
@@ -39,8 +39,8 @@ contract BallotBox is AutomationCompatibleInterface {
     // Event when a ballot is entered
     event BallotCast(address indexed voter, bool support);
 
-    constructor(ERC20Votes tokenAddress, uint256 timeTillStart, uint256 timeToVote) {
-        i_governanceToken = ERC20Votes(address(tokenAddress));
+    constructor(ERC721Votes tokenAddress, uint256 timeTillStart, uint256 timeToVote) {
+        i_governanceToken = ERC721Votes(address(tokenAddress));
         i_snapshot = clock() + timeTillStart;
         i_timeToVote = timeToVote;
         s_state = BBState.SETUP;

@@ -1,30 +1,51 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.20;
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {ERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
-import {ERC20Votes} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
-import {Nonces} from "@openzeppelin/contracts/utils/Nonces.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 
-contract Ballot is ERC20, ERC20Votes, ERC20Permit {
-    constructor() ERC20("Ballot", "B") ERC20Permit("Ballot") {}
+contract Ballot is ERC721, EIP712, ERC721Votes {
+    string public constant TOKEN_URI = "ipfs://QmVGqQistKuwe5PVZwvGdaQ8FExvzto4omNveNz8HxvxNR";
+    uint256 private s_tokenCounter;
 
-    // crappy function gotta do something about it later
-    function mint(uint256 amt) public {
-        _mint(msg.sender, amt);
+    constructor() ERC721("Ballot", "B") EIP712("Ballot", "1") {
+        s_tokenCounter = 0;
     }
+
+    function mintNFT() public returns (uint256) {
+        _safeMint(msg.sender, s_tokenCounter);
+        s_tokenCounter++;
+        return s_tokenCounter;
+    }
+
+    function tokenURI(uint256 /*tokenId*/) public pure override returns (string memory) {
+        return TOKEN_URI;
+    }
+
+    function getTokenCounter() public view returns (uint256) {
+        return s_tokenCounter;
+    }
+
+    function numCheckpoints(address account) public view virtual returns (uint32) {
+        return _numCheckpoints(account);
+    }
+
+    // The following functions are overrides required by Solidity.
 
     function _update(
-        address from,
         address to,
-        uint256 amount
-    ) internal override(ERC20, ERC20Votes) {
-        super._update(from, to, amount);
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721, ERC721Votes) returns (address) {
+        return super._update(to, tokenId, auth);
     }
 
-    function nonces(
-        address owner
-    ) public view virtual override(ERC20Permit, Nonces) returns (uint256) {
-        return super.nonces(owner);
+    function _increaseBalance(
+        address account,
+        uint128 value
+    ) internal override(ERC721, ERC721Votes) {
+        super._increaseBalance(account, value);
     }
 }

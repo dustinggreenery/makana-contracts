@@ -2,7 +2,6 @@ const { ethers } = require("hardhat");
 
 // 0 is first account, 1 is second account
 const ACCOUNT = 1;
-const AMOUNT = ethers.parseEther("5");
 
 async function giveVotePower() {
     const ballot = await ethers.getContract("Ballot");
@@ -15,10 +14,10 @@ async function giveVotePower() {
         gainer = secondaryVoter;
     }
 
-    const tx = await ballot.connect(gainer).mint(AMOUNT);
+    const tx = await ballot.connect(gainer).mintNFT();
     await tx.wait(1);
 
-    console.log(`Minted Tokens for ${gainer.address}.`);
+    console.log(`Minted Ballot for ${gainer.address}.`);
 
     const tx2 = await ballot.connect(gainer).delegate(gainer.address);
     await tx2.wait(1);

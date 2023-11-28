@@ -3,8 +3,8 @@ const { moveBlocks } = require("../utils/move-blocks");
 const { developmentChains, TIME_TILL_START } = require("../helper-hardhat-config");
 
 // 0 is first account, 1 is second account
-const ACCOUNT_TO_VOTE = 0;
-const SUPPORT = false;
+const ACCOUNT_TO_VOTE = 1;
+const SUPPORT = true;
 
 async function vote() {
     [deployer, secondaryVoter] = await ethers.getSigners();
