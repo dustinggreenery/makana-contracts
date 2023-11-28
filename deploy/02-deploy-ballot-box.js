@@ -1,4 +1,4 @@
-const { network, ethers } = require("hardhat");
+const { network } = require("hardhat");
 const { developmentChains, TIME_TILL_START, TIME_TO_VOTE } = require("../helper-hardhat-config");
 const { verify } = require("../utils/verify");
 
@@ -20,6 +20,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     log(`Ballot Box at ${ballotBox.address}`);
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-        await verify(ballotBox.address, [ballot.address, start_timestamp, TIME_TO_VOTE]);
+        await verify(ballotBox.address, [ballot.address, TIME_TILL_START, TIME_TO_VOTE]);
     }
 };

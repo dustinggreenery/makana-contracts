@@ -58,6 +58,9 @@ module.exports = {
         deployer: {
             default: 0,
         },
+        secondaryVoter: {
+            default: 1,
+        },
     },
     mocha: {
         timeout: 200000,

@@ -61,7 +61,7 @@ contract BallotBox is AutomationCompatibleInterface {
 
         if (support) {
             s_ballotsFor += weight;
-        } else {
+        } else if (!support) {
             s_ballotsAgainst += weight;
         }
 
@@ -80,7 +80,7 @@ contract BallotBox is AutomationCompatibleInterface {
         }
     }
 
-    function performUpkeep(bytes calldata) external override {
+    function performUpkeep(bytes calldata /*performData*/) external override {
         (bool upkeepNeeded, ) = checkUpkeep("");
         require(upkeepNeeded);
 

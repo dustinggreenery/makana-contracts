@@ -7,13 +7,11 @@ import {ERC20Votes} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Vo
 import {Nonces} from "@openzeppelin/contracts/utils/Nonces.sol";
 
 contract Ballot is ERC20, ERC20Votes, ERC20Permit {
-    constructor(uint256 initialSupply) ERC20("Ballot", "B") ERC20Permit("Ballot") {
-        _mint(msg.sender, initialSupply);
-    }
+    constructor() ERC20("Ballot", "B") ERC20Permit("Ballot") {}
 
     // crappy function gotta do something about it later
-    function mint(uint256 supply) public {
-        _mint(msg.sender, supply);
+    function mint(uint256 amt) public {
+        _mint(msg.sender, amt);
     }
 
     function _update(

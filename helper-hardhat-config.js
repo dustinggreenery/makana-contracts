@@ -11,14 +11,26 @@ const networkConfig = {
 
 const developmentChains = ["hardhat", "localhost"];
 
-const INITIAL_AMOUNT = ethers.utils.parseEther("10");
-const TIME_TILL_START = 1; // Unit is in 17 seconds
-const TIME_TO_VOTE = 1; // Unit is in 17 seconds
+const states = {
+    0: "SETUP",
+    1: "VOTING_PERIOD",
+    2: "RESULTS",
+};
+
+const results = {
+    0: "FOR",
+    1: "AGAINST",
+    2: "TIE",
+};
+
+const TIME_TILL_START = 5; // Unit is in 17 seconds
+const TIME_TO_VOTE = 5; // Unit is in 17 seconds
 
 module.exports = {
     developmentChains,
     networkConfig,
-    INITIAL_AMOUNT,
+    states,
+    results,
     TIME_TILL_START,
     TIME_TO_VOTE,
 };
