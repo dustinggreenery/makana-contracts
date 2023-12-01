@@ -1,25 +1,27 @@
 const { network } = require("hardhat");
-const { developmentChains } = require("../helper-hardhat-config");
+const { developmentChains, TITLE } = require("../helper-hardhat-config");
 const { verify } = require("../utils/verify");
 
 module.exports = async function ({ getNamedAccounts, deployments }) {
-    const { deploy, log } = deployments;
+    const { deploy, log, get } = deployments;
     const { nonprofit } = await getNamedAccounts();
 
-    log("Deploying Ballot...");
+    const ballot = await get("Ballot");
 
-    const ballot = await deploy("Ballot", {
+    log("Deploying Event...");
+
+    const event = await deploy("Event", {
         from: nonprofit,
-        args: [],
+        args: [TITLE, ballot.address],
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
     });
 
-    log(`Ballot at ${ballot.address}`);
+    log(`Event at ${event.address}`);
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-        await verify(ballot.address, []);
+        await verify(event.address, [TITLE, ballot.address]);
     }
 };
 
-module.exports.tags = ["all", "setup", "ballot"];
+module.exports.tags = ["all", "setup", "event"];

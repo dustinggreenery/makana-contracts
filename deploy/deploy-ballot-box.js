@@ -4,14 +4,14 @@ const { verify } = require("../utils/verify");
 
 module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log, get } = deployments;
-    const { deployer } = await getNamedAccounts();
+    const { nonprofit } = await getNamedAccounts();
 
     const ballot = await get("Ballot");
 
     log("Deploying Ballot Box...");
 
     const ballotBox = await deploy("BallotBox", {
-        from: deployer,
+        from: nonprofit,
         args: [ballot.address, TIME_TILL_START, TIME_TO_VOTE],
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
@@ -23,3 +23,5 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         await verify(ballotBox.address, [ballot.address, TIME_TILL_START, TIME_TO_VOTE]);
     }
 };
+
+module.exports.tags = ["noevent"];

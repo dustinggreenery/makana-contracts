@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 import "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
+import "hardhat/console.sol";
 
 error BallotBox__NotOpen(BallotBox.BBState state, uint256 time);
 error BallotBox__NotClosed(BallotBox.BBState state, uint256 time);

@@ -55,11 +55,20 @@ module.exports = {
     },
     allowUnlimitedContractSize: true,
     namedAccounts: {
-        deployer: {
+        nonprofit: {
             default: 0,
         },
-        secondaryVoter: {
+        sponsor: {
             default: 1,
+        },
+        firstvoter: {
+            default: 2,
+        },
+        secondvoter: {
+            default: 3,
+        },
+        thirdvoter: {
+            default: 4,
         },
     },
     mocha: {

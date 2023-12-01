@@ -23,6 +23,9 @@ const results = {
     2: "TIE",
 };
 
+const TITLE = "Movies in the Park 2023";
+
+const DESCRIPTION = "Did movies in the park 2023 show the movie?";
 const TIME_TILL_START = 5; // Unit is in 17 seconds
 const TIME_TO_VOTE = 5; // Unit is in 17 seconds
 
@@ -31,6 +34,8 @@ module.exports = {
     networkConfig,
     states,
     results,
+    TITLE,
+    DESCRIPTION,
     TIME_TILL_START,
     TIME_TO_VOTE,
 };

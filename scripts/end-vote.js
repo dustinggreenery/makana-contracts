@@ -3,7 +3,10 @@ const { moveBlocks } = require("../utils/move-blocks");
 const { developmentChains, TIME_TO_VOTE } = require("../helper-hardhat-config");
 
 async function endVote() {
-    const ballotBox = await ethers.getContract("BallotBox");
+    [, sponsor] = await ethers.getSigners();
+    const event = await ethers.getContract("Event");
+    const ballotBoxAddress = await event.getBallotBox(sponsor);
+    const ballotBox = await ethers.getContractAt("BallotBox", ballotBoxAddress);
     let state = await ballotBox.getState();
 
     if (state == 0) {
