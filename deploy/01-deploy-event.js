@@ -6,13 +6,11 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log, get } = deployments;
     const { nonprofit } = await getNamedAccounts();
 
-    const ballot = await get("Ballot");
-
     log("Deploying Event...");
 
     const event = await deploy("Event", {
         from: nonprofit,
-        args: [TITLE, ballot.address],
+        args: [TITLE],
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
     });
@@ -20,8 +18,8 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     log(`Event at ${event.address}`);
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-        await verify(event.address, [TITLE, ballot.address]);
+        await verify(event.address, [TITLE]);
     }
 };
 
-module.exports.tags = ["all", "setup", "event"];
+module.exports.tags = ["all", "event"];

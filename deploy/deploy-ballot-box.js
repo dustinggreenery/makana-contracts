@@ -2,6 +2,7 @@ const { network } = require("hardhat");
 const { developmentChains, TIME_TILL_START, TIME_TO_VOTE } = require("../helper-hardhat-config");
 const { verify } = require("../utils/verify");
 
+// Deploy script to deploy a ballot box without an underlying event.
 module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log, get } = deployments;
     const { nonprofit } = await getNamedAccounts();

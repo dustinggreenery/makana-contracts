@@ -4,8 +4,8 @@ const { developmentChains, TIME_TILL_START } = require("../helper-hardhat-config
 
 // 3 don't work for some reason
 // Account 1, 2 or 3
-const ACCOUNT_TO_VOTE = 3;
-const SUPPORT = true;
+const ACCOUNT_TO_VOTE = 2;
+const SUPPORT = false;
 
 async function vote() {
     [, sponsor, firstvoter, secondvoter, thirdvoter] = await ethers.getSigners();

@@ -4,7 +4,10 @@ const { ethers } = require("hardhat");
 const ACCOUNT = 0;
 
 async function giveVotePower() {
-    const ballot = await ethers.getContract("Ballot");
+    const event = await ethers.getContract("Event");
+    const ballotAddress = await event.getGovernanceToken();
+    const ballot = await ethers.getContractAt("Ballot", ballotAddress);
+
     [, , firstvoter, secondvoter, thirdvoter] = await ethers.getSigners();
     let gainer;
 

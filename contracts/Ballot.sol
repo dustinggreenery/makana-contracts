@@ -6,15 +6,23 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 
+error Ballot__AlreadyMinted(address minter);
+
 contract Ballot is ERC721, EIP712, ERC721Votes {
     string public constant TOKEN_URI = "ipfs://QmVGqQistKuwe5PVZwvGdaQ8FExvzto4omNveNz8HxvxNR";
     uint256 private s_tokenCounter;
+    mapping(address => bool) private hasMinted;
 
     constructor() ERC721("Ballot", "B") EIP712("Ballot", "1") {
         s_tokenCounter = 0;
     }
 
     function mintNFT() public returns (uint256) {
+        if (hasMinted[msg.sender]) {
+            revert Ballot__AlreadyMinted(msg.sender);
+        }
+        hasMinted[msg.sender] = true;
+
         _safeMint(msg.sender, s_tokenCounter);
         s_tokenCounter++;
         return s_tokenCounter;

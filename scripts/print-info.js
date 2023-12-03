@@ -3,8 +3,9 @@ const { states, results } = require("../helper-hardhat-config");
 
 async function printInfo() {
     const { nonprofit, sponsor, firstvoter, secondvoter, thirdvoter } = await getNamedAccounts();
-    const ballot = await ethers.getContract("Ballot");
     const event = await ethers.getContract("Event");
+    const ballotAddress = await event.getGovernanceToken();
+    const ballot = await ethers.getContractAt("Ballot", ballotAddress);
 
     console.log(`Event Title: ${await event.getEventTitle()}`);
     console.log(`Nonprofit: ${await event.getNonprofit()}`);

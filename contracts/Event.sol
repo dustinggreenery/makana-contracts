@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./BallotBox.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
+import "./Ballot.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 
 error Event__NotNonProfit();
@@ -24,7 +24,7 @@ contract Event {
     address[] private sponsors;
 
     address private immutable i_nonprofit;
-    ERC721Votes private immutable i_token;
+    Ballot private immutable i_token;
     string private eventTitle;
 
     modifier onlyNonprofit() {
@@ -32,10 +32,10 @@ contract Event {
         _;
     }
 
-    constructor(string memory _eventTitle, ERC721Votes governanceToken) {
+    constructor(string memory _eventTitle) {
         i_nonprofit = msg.sender;
         eventTitle = _eventTitle;
-        i_token = governanceToken;
+        i_token = new Ballot();
     }
 
     function requestVoteBox(
