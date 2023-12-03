@@ -11,8 +11,12 @@ require("dotenv").config();
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const PRIVATE_KEY_2 = process.env.PRIVATE_KEY_2;
+const PRIVATE_KEY_3 = process.env.PRIVATE_KEY_3;
+const PRIVATE_KEY_4 = process.env.PRIVATE_KEY_4;
+const PRIVATE_KEY_5 = process.env.PRIVATE_KEY_5;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
+const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
 
 module.exports = {
     defaultNetwork: "hardhat",
@@ -29,13 +33,29 @@ module.exports = {
             chainId: 11155111,
             blockConfirmations: 6,
             url: SEPOLIA_RPC_URL,
-            accounts: [PRIVATE_KEY, PRIVATE_KEY_2],
+            accounts: [PRIVATE_KEY, PRIVATE_KEY_2, PRIVATE_KEY_3, PRIVATE_KEY_4, PRIVATE_KEY_5],
+        },
+        zkEVM: {
+            chainId: 1442,
+            url: `https://rpc.public.zkevm-test.net`,
+            accounts: [PRIVATE_KEY, PRIVATE_KEY_2, PRIVATE_KEY_3, PRIVATE_KEY_4, PRIVATE_KEY_5],
         },
     },
     etherscan: {
         apiKey: {
             sepolia: ETHERSCAN_API_KEY,
+            zkEVM: POLYGONSCAN_API_KEY,
         },
+        customChains: [
+            {
+                network: "zkEVM",
+                chainId: 1442,
+                urls: {
+                    apiURL: `https://api-testnet-zkevm.polygonscan.com/api`,
+                    browserURL: "https://testnet-zkevm.polygonscan.com/",
+                },
+            },
+        ],
     },
     gasReporter: {
         enabled: false,

@@ -30,6 +30,11 @@ async function vote() {
         const tx0 = await ballotBox.performUpkeep("0x00");
         await tx0.wait(1);
     }
+    // Since Chainlink Automation doesn't support zkEVM.
+    if (state == 0 && network.name == "zkEVM") {
+        const tx0 = await ballotBox.performUpkeep("0x00");
+        await tx0.wait(1);
+    }
 
     state = await ballotBox.getState();
     if (state == 1) {

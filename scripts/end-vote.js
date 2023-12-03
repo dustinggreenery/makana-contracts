@@ -16,9 +16,14 @@ async function endVote() {
             await moveBlocks(TIME_TO_VOTE + 1);
             const tx = await ballotBox.performUpkeep("0x00");
             await tx.wait(1);
-
-            console.log("Voting Period Ended!");
         }
+        // Since Chainlink Automation doesn't support zkEVM.
+        if (network.name == "zkEVM") {
+            const tx = await ballotBox.performUpkeep("0x00");
+            await tx.wait(1);
+        }
+
+        console.log("Voting Period Ended!");
     } else {
         console.log("Voting Already Ended!");
     }
