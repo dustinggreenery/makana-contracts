@@ -26,8 +26,8 @@ const results = {
 const TITLE = "Movies in the Park 2023";
 
 const DESCRIPTION = "Did movies in the park 2023 show the movie?";
-const TIME_TILL_START = 10; // Unit is in 17 seconds
-const TIME_TO_VOTE = 20; // Unit is in 17 seconds
+const TIME_TILL_START = 100; // Unit is in 17 seconds
+const TIME_TO_VOTE = 100; // Unit is in 17 seconds
 
 module.exports = {
     developmentChains,

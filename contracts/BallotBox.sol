@@ -81,7 +81,7 @@ contract BallotBox is AutomationCompatibleInterface {
         }
     }
 
-    function performUpkeep(bytes calldata /*performData*/) external override {
+    function performUpkeep(bytes calldata performData) external override {
         (bool upkeepNeeded, ) = checkUpkeep("");
         require(upkeepNeeded);
 
