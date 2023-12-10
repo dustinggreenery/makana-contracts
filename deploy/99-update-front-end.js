@@ -16,6 +16,9 @@ module.exports = async function () {
     console.log("Updating Front End...");
     updateContractAddresses();
     updateAbi();
+
+    console.log("Sometimes updating addresses doesn't work automatically.");
+    console.log("If needed, enter in the addresses manually to their json files");
 };
 
 async function updateContractAddresses() {
@@ -46,6 +49,10 @@ async function updateContractAddresses() {
 
     fs.writeFileSync(EVENT_ADDRESSES_FILE, JSON.stringify(eventAddresses));
     fs.writeFileSync(BALLOT_ADDRESSES_FILE, JSON.stringify(ballotAddresses));
+
+    console.log(`Chain ID: ${chainId}`);
+    console.log(`Event Address: ${eventAddress}`);
+    console.log(`Ballot Address: ${ballotAddress}`);
 }
 
 async function updateAbi() {
