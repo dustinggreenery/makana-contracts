@@ -2,15 +2,15 @@ const { ethers, network, getNamedAccounts } = require("hardhat");
 const fs = require("fs");
 
 const EVENT_JSON_FILE = "./artifacts/contracts/Event.sol/Event.json";
-const EVENT_ADDRESSES_FILE = "../ballot-box-front-end/constants/eventAddresses.json";
-const EVENT_ABI_FILE = "../ballot-box-front-end/constants/eventAbi.json";
+const EVENT_ADDRESSES_FILE = "../makana-front-end/constants/eventAddresses.json";
+const EVENT_ABI_FILE = "../makana-front-end/constants/eventAbi.json";
 
 const BALLOT_JSON_FILE = "./artifacts/contracts/Ballot.sol/Ballot.json";
-const BALLOT_ADDRESSES_FILE = "../ballot-box-front-end/constants/ballotAddresses.json";
-const BALLOT_ABI_FILE = "../ballot-box-front-end/constants/ballotAbi.json";
+const BALLOT_ADDRESSES_FILE = "../makana-front-end/constants/ballotAddresses.json";
+const BALLOT_ABI_FILE = "../makana-front-end/constants/ballotAbi.json";
 
 const BOX_JSON_FILE = "./artifacts/contracts/BallotBox.sol/BallotBox.json";
-const BOX_ABI_FILE = "../ballot-box-front-end/constants/boxAbi.json";
+const BOX_ABI_FILE = "../makana-front-end/constants/boxAbi.json";
 
 module.exports = async function () {
     console.log("Updating Front End...");

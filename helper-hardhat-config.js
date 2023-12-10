@@ -7,6 +7,9 @@ const networkConfig = {
     31337: {
         name: "hardhat",
     },
+    1442: {
+        name: "zkEVM",
+    },
 };
 
 const developmentChains = ["hardhat", "localhost"];
